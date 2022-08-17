@@ -30,6 +30,9 @@ pub mod solana_cloud_funding {
         if **campaign.to_account_info().lamports.borrow() - rent_balance < amount {
             return Err(ProgramError::InsufficientFunds);
         }
+
+        // PDAから別のwalletに通貨を送るときはtry_borrow_mut_lamportsを使用しなければいけない
+        // https://discord.com/channels/889577356681945098/889702325231427584/999690159920521256
         **campaign.to_account_info().try_borrow_mut_lamports()? -= amount;
         **user.to_account_info().try_borrow_mut_lamports()? += amount;
 
