@@ -14,6 +14,9 @@ describe("solana-cloud-funding", () => {
   const program = anchor.workspace.SolanaCloudFunding as Program<SolanaCloudFunding>;
 
   it("Cloud Funding Successful", async () => {
+    // findProgramAddressでPDAを取得
+    // cloud fundingサービスでは、取引情報はPDAに格納する
+    // https://solana-labs.github.io/solana-web3.js/classes/PublicKey.html#findProgramAddress
     const [campaign] = await PublicKey.findProgramAddress(
       [
         utils.bytes.utf8.encode("CAMPAIGN_DEMO"),
